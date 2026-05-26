@@ -1,0 +1,137 @@
+# ----------------------------
+# macOS / system files
+# ----------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ----------------------------
+# Editor / IDE files
+# ----------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ----------------------------
+# Environment files / secrets
+# ----------------------------
+.env
+.env.*
+!.env.example
+!.env.local.example
+!.env.production.example
+
+# ----------------------------
+# Node / Next.js
+# ----------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+.next/
+out/
+build/
+dist/
+coverage/
+
+.vercel/
+.netlify/
+
+# ----------------------------
+# Next.js local files
+# ----------------------------
+apps/web/.next/
+apps/web/out/
+apps/web/node_modules/
+apps/web/coverage/
+apps/web/.env
+apps/web/.env.*
+!apps/web/.env.example
+
+# ----------------------------
+# WordPress local / generated files
+# ----------------------------
+wordpress/wp-content/uploads/
+wordpress/wp-content/cache/
+wordpress/wp-content/upgrade/
+wordpress/wp-content/backups/
+wordpress/wp-content/ai1wm-backups/
+wordpress/wp-content/wflogs/
+wordpress/wp-content/debug.log
+
+# If WordPress core is ever mounted locally, do not commit it
+wordpress/wp-admin/
+wordpress/wp-includes/
+wordpress/*.php
+!wordpress/plugins/
+
+# Keep custom plugins tracked
+!wordpress/plugins/
+!wordpress/plugins/**
+
+# Ignore plugin build/dependency artifacts
+wordpress/plugins/**/vendor/
+wordpress/plugins/**/node_modules/
+wordpress/plugins/**/dist/
+wordpress/plugins/**/build/
+
+# ----------------------------
+# Docker / local database artifacts
+# ----------------------------
+mysql/
+db/
+data/
+docker-data/
+*.sql
+*.sql.gz
+*.dump
+
+# ----------------------------
+# Logs
+# ----------------------------
+logs/
+*.log
+
+# ----------------------------
+# Temporary files
+# ----------------------------
+tmp/
+temp/
+.cache/
+
+# ----------------------------
+# Archives / backups
+# ----------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.bak
+*.backup
+
+# ----------------------------
+# Certificates / keys
+# ----------------------------
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# ----------------------------
+# Local tool caches
+# ----------------------------
+.turbo/
+.eslintcache
