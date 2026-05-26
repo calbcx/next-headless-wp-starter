@@ -77,9 +77,10 @@ wordpress/wp-includes/
 wordpress/*.php
 !wordpress/plugins/
 
-# Keep custom plugins tracked
-!wordpress/plugins/
-!wordpress/plugins/**
+# Track only the custom project plugin
+wordpress/plugins/*
+!wordpress/plugins/project-content/
+!wordpress/plugins/project-content/**
 
 # Ignore plugin build/dependency artifacts
 wordpress/plugins/**/vendor/

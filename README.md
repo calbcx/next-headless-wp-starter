@@ -79,17 +79,56 @@ apps/
 
 ## Local Development
 
-Local development setup will include:
+Local development uses:
 
 - WordPress running in Docker
 - MySQL running in Docker
-- Next.js running from `apps/web`
+- Next.js running from `apps/web` once the frontend is scaffolded
 
 Expected local URLs:
 
 ```txt
 WordPress: http://localhost:8080
 Next.js:   http://localhost:3000
+```
+
+### Setup
+
+1. Copy the root environment example:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Start WordPress and MySQL:
+
+   ```bash
+   docker compose up -d
+   ```
+
+3. Open WordPress at `http://localhost:8080` and complete the install flow.
+
+4. Install and activate `WPGraphQL` in WordPress if you want the future frontend to use the documented GraphQL endpoint.
+
+5. Develop custom plugins locally in `./wordpress/plugins`.
+
+The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so local plugin changes are available inside WordPress immediately.
+
+### Frontend Environment
+
+The Next.js app is not scaffolded yet, but a frontend env example is included at `apps/web/.env.example` for the expected local URL configuration:
+
+```txt
+WORDPRESS_GRAPHQL_URL=http://localhost:8080/graphql
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+Once `apps/web` exists, copy it to `apps/web/.env.local` before running the frontend locally.
+
+### Stop Services
+
+```bash
+docker compose down
 ```
 
 ## Documentation
@@ -109,4 +148,4 @@ Use `.env.example` files for placeholder configuration only.
 
 ## Project Status
 
-Initial planning stage.
+Repository foundation and local WordPress environment scaffolded.
