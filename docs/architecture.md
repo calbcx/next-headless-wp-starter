@@ -156,6 +156,8 @@ Tradeoffs:
 - Requires GraphQL-specific configuration for custom content types
 - Adds another concept to local setup and deployment
 
+WPGraphQL is a required runtime dependency for the GraphQL integration, but it is not bundled in this repository. The custom `project-content` plugin is kept in source control because it defines project-specific content structure. Third-party WordPress plugins should be installed and updated through WordPress admin or the deployment environment's plugin management process.
+
 ## JavaScript Frontend Approach
 
 The frontend should use modern JavaScript with clear structure.
@@ -307,6 +309,7 @@ Visitor
 - Keep WordPress core, plugins, and themes updated.
 - Limit installed plugins.
 - Disable unused themes and plugins.
+- Install and maintain WPGraphQL as a required runtime dependency rather than vendoring it in this repository.
 - Avoid exposing private or draft content through frontend queries.
 
 ### Next.js

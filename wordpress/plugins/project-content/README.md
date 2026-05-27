@@ -1,12 +1,11 @@
-# project-content
+# Project Content
 
-This directory is reserved for the custom WordPress plugin used by this project.
+Custom WordPress plugin for the project content model used by this headless WordPress reference project.
 
-The plugin should contain the CMS-specific functionality for the headless site, such as:
+The plugin registers:
 
-- custom post types
-- custom taxonomies
-- WPGraphQL integration
-- content model registration
+- `project` custom post type
+- `technology` taxonomy
+- WPGraphQL exposure for projects and technologies
 
-Do not commit bundled WordPress plugins or generated plugin files here.
+WPGraphQL should be installed and active in WordPress for the GraphQL fields to be available at `/graphql`.

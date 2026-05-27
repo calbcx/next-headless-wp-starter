@@ -83,6 +83,8 @@ Suggested plugin categories:
 
 Avoid installing plugins that are not needed for the project.
 
+WPGraphQL is required for the headless frontend integration, but it should not be bundled into this repository. Install and update it through WordPress admin or the deployment environment's plugin management process so third-party plugin security updates remain part of normal WordPress maintenance.
+
 ### Custom Plugin Security
 
 The custom plugin should follow WordPress security practices.

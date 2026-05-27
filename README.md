@@ -108,11 +108,17 @@ Next.js:   http://localhost:3000
 
 3. Open WordPress at `http://localhost:8080` and complete the install flow.
 
-4. Install and activate `WPGraphQL` in WordPress if you want the future frontend to use the documented GraphQL endpoint.
+4. Install and activate `WPGraphQL` in WordPress.
 
 5. Develop custom plugins locally in `./wordpress/plugins`.
 
 The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so local plugin changes are available inside WordPress immediately.
+
+### WordPress Plugin Dependencies
+
+`WPGraphQL` is a third-party WordPress plugin required for this project's frontend GraphQL integration. It is not bundled in this repository. Install and activate it through WordPress admin or through the plugin management process for the target WordPress environment.
+
+The repository includes only the custom `project-content` plugin. Third-party WordPress plugins are managed outside the repo so they can be updated through normal WordPress maintenance workflows.
 
 ### Frontend Environment
 
