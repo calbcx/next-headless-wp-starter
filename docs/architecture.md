@@ -107,17 +107,24 @@ wordpress.js
 ProjectCard.js
 ```
 
-Suggested routes:
+Implemented initial routes:
 
 ```txt
 /
  /projects
  /projects/[slug]
- /writing
- /writing/[slug]
  /technologies
+ /writing
  /reference
 ```
+
+The initial frontend keeps WordPress data access in:
+
+```txt
+apps/web/lib/wordpress.js
+```
+
+That module reads `WORDPRESS_GRAPHQL_URL`, performs GraphQL requests, handles missing or unexpected responses defensively, and normalizes WordPress project and technology data into simple JavaScript objects before passing it to components.
 
 ## Data Flow
 
@@ -138,6 +145,8 @@ Next.js Fetching Layer
     v
 Project Pages
 ```
+
+The local flow has been validated with a published WordPress `Project` entry and associated `Technology` terms. WPGraphQL returns the custom content model, and the Next.js frontend renders the project listing and detail route from the normalized GraphQL response.
 
 ## API Strategy
 
@@ -220,9 +229,9 @@ Examples:
 
 ## Local Development Architecture
 
-The local environment should use Docker for WordPress and MySQL.
+The local environment uses Docker for WordPress and MySQL.
 
-Suggested services:
+Services:
 
 ```txt
 wordpress
@@ -239,6 +248,8 @@ Next.js running locally on the host machine
 ```
 
 This keeps the setup simple while still demonstrating practical local infrastructure.
+
+The WordPress container publishes HTTP on `127.0.0.1:8080`, keeping the local CMS bound to the developer machine by default.
 
 ## Suggested Local URLs
 
@@ -272,6 +283,35 @@ NEXT_PUBLIC_SITE_URL
 Do not commit real `.env` files.
 
 Commit `.env.example` files instead.
+
+For local integration, `apps/web/.env.local` should define:
+
+```txt
+WORDPRESS_GRAPHQL_URL=http://localhost:8080/graphql
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+`apps/web/.env.local` is intentionally ignored by git.
+
+## Local Validation
+
+Current local validation commands:
+
+```bash
+docker compose up -d
+cd apps/web
+npm run lint
+npm run build
+npm run dev
+```
+
+Validated behavior:
+
+- WordPress and MySQL start through Docker Compose.
+- WordPress is reachable at `http://localhost:8080`.
+- WPGraphQL is reachable at `http://localhost:8080/graphql`.
+- The `Project` custom post type and `Technology` taxonomy are exposed through WPGraphQL.
+- The Next.js frontend renders WordPress-managed project content when `WORDPRESS_GRAPHQL_URL` is configured.
 
 ## Deployment Architecture
 

@@ -18,6 +18,36 @@ WordPress manages example entries, technical writeups, posts, and technology cat
 
 The project is intentionally structured as a clear engineering reference, with the content model serving as a practical use case rather than the main reason the repository exists.
 
+## Current Status
+
+The repository foundation, Docker-based local WordPress environment, custom `project-content` plugin, and initial Next.js frontend foundation are in place.
+
+The local integration flow has been validated:
+
+```txt
+WordPress Project content
+    |
+    v
+WPGraphQL
+    |
+    v
+apps/web/lib/wordpress.js
+    |
+    v
+Next.js project listing and detail pages
+```
+
+Validated local checks:
+
+- `docker compose up -d` runs WordPress and MySQL locally.
+- WordPress is reachable at `http://localhost:8080`.
+- WPGraphQL returns JSON from `http://localhost:8080/graphql`.
+- The custom `Project` post type and `Technology` taxonomy are exposed through WPGraphQL.
+- `apps/web` runs with `npm run dev`.
+- `npm run lint` passes.
+- `npm run build` passes.
+- A WordPress-managed project renders in the Next.js frontend when `apps/web/.env.local` points to the local GraphQL endpoint.
+
 ## Core Goals
 
 - Use WordPress as a CMS.
@@ -58,6 +88,8 @@ nextjs-headless-wordpress/
 
 ## Phase 1: Repository Foundation
 
+Status: Complete.
+
 ### Goal
 
 Create a clean project foundation that can run locally and be understood by another developer.
@@ -91,6 +123,8 @@ Create a clean project foundation that can run locally and be understood by anot
 
 ## Phase 2: Local WordPress Environment
 
+Status: Complete for local development.
+
 ### Goal
 
 Run WordPress and MySQL locally using Docker.
@@ -120,6 +154,8 @@ Run WordPress and MySQL locally using Docker.
 - The custom plugin directory appears in the WordPress plugins screen.
 
 ## Phase 3: Custom WordPress Content Plugin
+
+Status: Complete for the initial `Project` and `Technology` model.
 
 ### Goal
 
@@ -155,6 +191,8 @@ Create a custom WordPress plugin that defines example-oriented content in a reus
 - The plugin code follows WordPress conventions.
 
 ## Phase 4: Next.js JavaScript Frontend Foundation
+
+Status: Complete for the initial public routes and WordPress project integration.
 
 ### Goal
 
@@ -192,6 +230,8 @@ Create a modern frontend application that consumes WordPress content.
 
 ## Phase 5: Representative Content
 
+Status: In progress.
+
 ### Goal
 
 Add representative content that exercises the data model and main frontend routes without depending on showcase-oriented content.
@@ -223,6 +263,8 @@ Each technical entry should include overview, problem, constraints, technical ap
 - The homepage links to featured entries.
 
 ## Phase 6: Quality Checks
+
+Status: In progress.
 
 ### Goal
 
