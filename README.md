@@ -14,7 +14,7 @@ This repository demonstrates modern WordPress development, custom content modeli
 - Provide a local development setup that another developer can run and extend.
 - Document architecture and security decisions clearly.
 
-## Planned Stack
+## Stack
 
 - WordPress
 - MySQL
@@ -26,7 +26,7 @@ This repository demonstrates modern WordPress development, custom content modeli
 - Docker
 - WPGraphQL
 
-## Planned Structure
+## Project Structure
 
 ```txt
 apps/
@@ -43,7 +43,7 @@ README.md
 docker-compose.yml
 ```
 
-## Expected Frontend Structure
+## Frontend Structure
 
 ```txt
 apps/
@@ -83,7 +83,7 @@ Local development uses:
 
 - WordPress running in Docker
 - MySQL running in Docker
-- Next.js running from `apps/web` once the frontend is scaffolded
+- Next.js running from `apps/web`
 
 Expected local URLs:
 
@@ -91,6 +91,8 @@ Expected local URLs:
 WordPress: http://localhost:8080
 Next.js:   http://localhost:3000
 ```
+
+Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it is not exposed on the wider network by default.
 
 ### Setup
 
@@ -120,16 +122,37 @@ The Docker Compose setup mounts `./wordpress/plugins` into the container at `/va
 
 The repository includes only the custom `project-content` plugin. Third-party WordPress plugins are managed outside the repo so they can be updated through normal WordPress maintenance workflows.
 
-### Frontend Environment
+### Frontend Setup
 
-The Next.js app is not scaffolded yet, but a frontend env example is included at `apps/web/.env.example` for the expected local URL configuration:
+The Next.js app lives in `apps/web`. Copy the frontend environment example before running the app locally:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
+
+The expected local configuration is:
 
 ```txt
 WORDPRESS_GRAPHQL_URL=http://localhost:8080/graphql
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-Once `apps/web` exists, copy it to `apps/web/.env.local` before running the frontend locally.
+Install dependencies and start the frontend:
+
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+Run validation before committing frontend changes:
+
+```bash
+npm run lint
+npm run build
+```
+
+The frontend can build without `WORDPRESS_GRAPHQL_URL` configured. In that case, WordPress-backed sections render empty states until WPGraphQL is running and `apps/web/.env.local` is configured.
 
 ### Stop Services
 
@@ -154,4 +177,4 @@ Use `.env.example` files for placeholder configuration only.
 
 ## Project Status
 
-Repository foundation and local WordPress environment scaffolded.
+Repository foundation, local WordPress environment, custom content plugin, and initial Next.js frontend foundation are scaffolded.
