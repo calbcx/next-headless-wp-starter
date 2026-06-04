@@ -1,8 +1,8 @@
 # Next.js Headless WordPress
 
-A developer-focused headless WordPress reference project using WordPress as a content management system and Next.js as the public frontend.
+A developer-focused headless WordPress reference project using WordPress as the CMS and Next.js as the public frontend.
 
-This repository demonstrates modern WordPress development, custom content modeling, WPGraphQL-powered frontend integration, React and Next.js frontend development with JavaScript, local development workflow, and production-oriented documentation.
+This repository is intended to demonstrate practical WordPress content modeling, WPGraphQL-based data access, React and Next.js frontend development with JavaScript, local development workflow, and deployment-aware documentation.
 
 ## Project Goals
 
@@ -10,6 +10,7 @@ This repository demonstrates modern WordPress development, custom content modeli
 - Use Next.js and React as the frontend.
 - Use JavaScript for the frontend application.
 - Use a custom WordPress plugin for example and case-study content types.
+- Use WPGraphQL as the primary API layer between WordPress and Next.js.
 - Keep CMS functionality separate from frontend presentation.
 - Provide a local development setup that another developer can run and extend.
 - Document architecture and security decisions clearly.
@@ -29,6 +30,9 @@ This repository demonstrates modern WordPress development, custom content modeli
 ## Project Structure
 
 ```txt
+.github/
+  workflows/
+    web.yml
 apps/
   web/
 wordpress/
@@ -74,6 +78,7 @@ apps/
     .env.example
     jsconfig.json
     next.config.mjs
+    package-lock.json
     package.json
 ```
 
@@ -84,6 +89,11 @@ Local development uses:
 - WordPress running in Docker
 - MySQL running in Docker
 - Next.js running from `apps/web`
+
+Requirements:
+
+- Docker Compose
+- Node.js and npm
 
 Expected local URLs:
 
@@ -96,7 +106,7 @@ Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it i
 
 ### Setup
 
-1. Copy the root environment example:
+1. Copy the root Docker environment example:
 
    ```bash
    cp .env.example .env
@@ -108,13 +118,18 @@ Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it i
    docker compose up -d
    ```
 
-3. Open WordPress at `http://localhost:8080` and complete the install flow.
+3. Open `http://localhost:8080` and complete the WordPress install flow.
 
-4. Install and activate `WPGraphQL` in WordPress.
+4. In WordPress, install and activate `WPGraphQL`.
 
-5. Develop custom plugins locally in `./wordpress/plugins`.
+5. In WordPress, activate the `Project Content` plugin.
 
-The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so local plugin changes are available inside WordPress immediately.
+6. Create and publish at least one Project entry in WordPress. Assign
+   Technology terms if you want them to appear on the frontend.
+
+The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so the `Project Content` plugin is available to activate from the WordPress plugins screen.
+
+Local changes to custom plugins in `./wordpress/plugins` are available inside WordPress immediately.
 
 ### WordPress Plugin Dependencies
 
@@ -137,7 +152,7 @@ WORDPRESS_GRAPHQL_URL=http://localhost:8080/graphql
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-Install dependencies and start the frontend:
+Install dependencies and start the frontend from `apps/web`:
 
 ```bash
 cd apps/web
@@ -145,7 +160,9 @@ npm install
 npm run dev
 ```
 
-Run validation before committing frontend changes:
+With the default Next.js dev server, the frontend is available at `http://localhost:3000`.
+
+Run validation from `apps/web` before committing frontend changes:
 
 ```bash
 npm run lint
@@ -154,10 +171,70 @@ npm run build
 
 The frontend can build without `WORDPRESS_GRAPHQL_URL` configured. In that case, WordPress-backed sections render empty states until WPGraphQL is running and `apps/web/.env.local` is configured.
 
+### Continuous Integration
+
+This repository includes a GitHub Actions workflow for the frontend lint and build checks from `apps/web` on pushes to `main` and on pull requests:
+
+```bash
+npm ci
+npm run lint
+npm run build
+```
+
+### Confirm WordPress Data
+
+Open the WPGraphQL IDE in WordPress and run this query to confirm Project data is available:
+
+```graphql
+query GetProjectsForFrontend {
+  projects(first: 10) {
+    nodes {
+      title
+      slug
+      excerpt
+      content
+      technologies {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
 ### Stop Services
 
 ```bash
 docker compose down
+```
+
+## Deployment
+
+Deployment is intentionally provider-neutral.
+
+Possible deployment targets include:
+
+- WordPress CMS: managed WordPress hosting, cPanel hosting, a VPS, AWS, or another WordPress-capable host.
+- Next.js frontend: Vercel, Netlify, AWS, or another Node.js-capable frontend host.
+
+cPanel is listed as one possible WordPress CMS host. Hosting the Next.js frontend on cPanel depends on whether the account supports Node.js applications; static output is generally simpler there than server-rendered Next.js routes.
+
+Production requirements:
+
+- Install and activate `WPGraphQL` on the WordPress host.
+- Deploy and activate the custom `Project Content` plugin from `wordpress/plugins/project-content`.
+- Publish Project entries and Technology terms in WordPress.
+- Configure the frontend host with `WORDPRESS_GRAPHQL_URL` pointing to the production GraphQL endpoint.
+- Configure `NEXT_PUBLIC_SITE_URL` with the public frontend URL.
+- Keep production `.env` files, credentials, database exports, and backups out of the repository.
+
+Production environment values:
+
+```txt
+WORDPRESS_GRAPHQL_URL=<wordpress-graphql-url>
+NEXT_PUBLIC_SITE_URL=<public-frontend-url>
 ```
 
 ## Documentation
@@ -177,4 +254,4 @@ Use `.env.example` files for placeholder configuration only.
 
 ## Project Status
 
-Repository foundation, local WordPress environment, custom content plugin, and initial Next.js frontend foundation are scaffolded.
+The repository contains the local Docker WordPress environment, the custom `project-content` plugin, the JavaScript Next.js frontend, WordPress data-fetching helpers, public routes for projects and technologies, documentation, and an initial frontend CI workflow. Local WordPress content is not committed. Deployment remains the next project phase.

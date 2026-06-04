@@ -228,13 +228,13 @@ Create a modern frontend application that consumes WordPress content.
 - The frontend has a simple, professional design.
 - The frontend uses JavaScript consistently.
 
-## Phase 5: Representative Content
+## Phase 5: Local Content Validation
 
-Status: In progress.
+Status: Complete for local validation.
 
 ### Goal
 
-Add representative content that exercises the data model and main frontend routes without depending on showcase-oriented content.
+Use locally managed WordPress content to validate the data model and main frontend routes without committing sample content to the repository.
 
 ### Suggested Pages
 
@@ -251,20 +251,22 @@ Each technical entry should include overview, problem, constraints, technical ap
 
 ### Acceptance Criteria
 
-- The site includes enough representative content to validate list and detail views.
+- The local WordPress site includes enough published content to validate list and detail views.
 - Entries are presented as engineering work, not only screenshots.
 - Technical writeups describe real decision-making.
 - Content is appropriate for public viewing.
+- Sample content is managed in WordPress and is not committed to the repository.
 
 ### Definition of Done
 
-- At least three example entries are published.
-- At least one detailed technical writeup is published.
-- The homepage links to featured entries.
+- At least three Project entries are published locally in WordPress.
+- Project entries render on `/projects` and `/projects/[slug]`.
+- Technology terms render on `/technologies` when assigned.
+- The repository remains free of database exports, media uploads, and sample content fixtures.
 
 ## Phase 6: Quality Checks
 
-Status: In progress.
+Status: Complete for initial public repository checks.
 
 ### Goal
 
@@ -294,16 +296,29 @@ Add basic quality controls suitable for a public engineering repository.
 
 ## Phase 7: Deployment
 
+Status: Ready to begin.
+
 ### Goal
 
 Deploy the project in a practical, maintainable way.
 
 ### Recommended Deployment Direction
 
-- WordPress CMS hosted on managed WordPress hosting, cPanel hosting, or a VPS.
-- Next.js frontend deployed to Vercel, Netlify, or another frontend hosting platform.
+- WordPress CMS hosted on managed WordPress hosting, cPanel hosting, a VPS, AWS, or another WordPress-capable host.
+- Next.js frontend deployed to Vercel, Netlify, AWS, or another Node.js-capable frontend host.
 - Environment variables configured in the hosting provider.
 - WordPress admin protected with strong credentials and two-factor authentication where available.
+
+cPanel is a good candidate for WordPress hosting. It should only be considered for the Next.js frontend when the account supports Node.js applications through Application Manager or an equivalent runtime. Static exports are easier to host on cPanel than server-rendered Next.js routes.
+
+Required production configuration:
+
+```txt
+WORDPRESS_GRAPHQL_URL=<wordpress-graphql-url>
+NEXT_PUBLIC_SITE_URL=<public-frontend-url>
+```
+
+Do not commit production `.env` files or provider secrets.
 
 ### Acceptance Criteria
 

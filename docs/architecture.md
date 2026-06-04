@@ -313,15 +313,30 @@ Validated behavior:
 - The `Project` custom post type and `Technology` taxonomy are exposed through WPGraphQL.
 - The Next.js frontend renders WordPress-managed project content when `WORDPRESS_GRAPHQL_URL` is configured.
 
+Sample content is not committed to the repository. Local validation content lives in the developer's WordPress database and should not be exported into source control.
+
 ## Deployment Architecture
 
 Recommended deployment approach:
 
 ```txt
-WordPress CMS: managed WordPress hosting, cPanel hosting, VPS, or container host
-Next.js frontend: Vercel, Netlify, or similar frontend platform
-Database: MySQL managed by the WordPress host
+WordPress CMS: managed WordPress hosting, cPanel hosting, a VPS, AWS, or another WordPress-capable host
+Next.js frontend: Vercel, Netlify, AWS, or another Node.js-capable frontend host
+Database: MySQL managed by the WordPress host or database provider
 ```
+
+cPanel can host the WordPress side of the architecture well. It can host the Next.js side only when the account provides Node.js application support, environment variable configuration, dependency installation, and a compatible startup/runtime model. Static Next.js output is easier to place on traditional cPanel hosting than a server-rendered App Router deployment.
+
+A production deployment must configure `WORDPRESS_GRAPHQL_URL` in the frontend host to point to the production WordPress GraphQL endpoint and `NEXT_PUBLIC_SITE_URL` to the public frontend URL.
+
+Production environment values:
+
+```txt
+WORDPRESS_GRAPHQL_URL=<wordpress-graphql-url>
+NEXT_PUBLIC_SITE_URL=<public-frontend-url>
+```
+
+Production environment files, credentials, database exports, backups, and uploaded media should remain outside the repository.
 
 ## Production Flow
 
