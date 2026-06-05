@@ -40,6 +40,7 @@ wordpress/
     project-content/
 docs/
   architecture.md
+  deployment/
 plan.md
 agents.md
 security.md
@@ -129,7 +130,7 @@ Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it i
 
 The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so the `Project Content` plugin is available to activate from the WordPress plugins screen.
 
-Local changes to custom plugins in `./wordpress/plugins` are available inside WordPress immediately.
+Local changes to `wordpress/plugins/project-content` are available inside WordPress immediately.
 
 ### WordPress Plugin Dependencies
 
@@ -212,7 +213,7 @@ docker compose down
 
 ## Deployment
 
-Deployment is intentionally provider-neutral.
+Deployment is intentionally provider-neutral. The deployment docs are the source of truth for deployment options and environment variables.
 
 Possible deployment targets include:
 
@@ -237,12 +238,21 @@ WORDPRESS_GRAPHQL_URL=<wordpress-graphql-url>
 NEXT_PUBLIC_SITE_URL=<public-frontend-url>
 ```
 
+Start with [`docs/deployment/overview.md`](./docs/deployment/overview.md), then use the guide that matches the selected WordPress and frontend hosts.
+
 ## Documentation
 
 - [`plan.md`](./plan.md): project phases, goals, and acceptance criteria
 - [`agents.md`](./agents.md): engineering standards for AI agents and contributors
 - [`security.md`](./security.md): security expectations for the public repository
 - [`docs/architecture.md`](./docs/architecture.md): architecture overview and decisions
+- [`docs/deployment/overview.md`](./docs/deployment/overview.md): deployment options and shared checklist
+- [`docs/deployment/environment-variables.md`](./docs/deployment/environment-variables.md): production environment variable contract
+- [`docs/deployment/cpanel-wordpress-vercel-frontend.md`](./docs/deployment/cpanel-wordpress-vercel-frontend.md): cPanel WordPress with Vercel frontend
+- [`docs/deployment/cpanel-wordpress-aws-amplify-frontend.md`](./docs/deployment/cpanel-wordpress-aws-amplify-frontend.md): cPanel WordPress with AWS Amplify frontend
+- [`docs/deployment/aws-lightsail-wordpress-vercel-frontend.md`](./docs/deployment/aws-lightsail-wordpress-vercel-frontend.md): AWS Lightsail WordPress with Vercel frontend
+- [`docs/deployment/aws-lightsail-wordpress-aws-amplify-frontend.md`](./docs/deployment/aws-lightsail-wordpress-aws-amplify-frontend.md): AWS Lightsail WordPress with AWS Amplify frontend
+- [`docs/deployment/troubleshooting.md`](./docs/deployment/troubleshooting.md): common deployment issues
 
 ## Repository Safety
 

@@ -338,6 +338,8 @@ NEXT_PUBLIC_SITE_URL=<public-frontend-url>
 
 Production environment files, credentials, database exports, backups, and uploaded media should remain outside the repository.
 
+Detailed deployment options live in `docs/deployment/`. Those guides cover cPanel WordPress with Vercel or AWS Amplify frontends, and AWS Lightsail WordPress with Vercel or AWS Amplify frontends.
+
 ## Production Flow
 
 ```txt
@@ -431,7 +433,5 @@ Possible future improvements:
 - Automated frontend tests
 - Accessibility checks
 - Image optimization strategy
-- Deployment guide for cPanel WordPress plus Vercel frontend
-- Deployment guide for VPS-hosted WordPress
-- CI workflow for linting and build checks
+- Deeper provider-specific deployment automation notes after a real deployment path is selected
 - Optional TypeScript migration if useful later

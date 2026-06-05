@@ -311,6 +311,8 @@ Deploy the project in a practical, maintainable way.
 
 cPanel is a good candidate for WordPress hosting. It should only be considered for the Next.js frontend when the account supports Node.js applications through Application Manager or an equivalent runtime. Static exports are easier to host on cPanel than server-rendered Next.js routes.
 
+Deployment option guides are available in `docs/deployment/`.
+
 Required production configuration:
 
 ```txt
@@ -325,7 +327,7 @@ Do not commit production `.env` files or provider secrets.
 - The frontend is publicly accessible.
 - The frontend can fetch published WordPress content.
 - WordPress admin is not exposed unnecessarily beyond normal login access.
-- Deployment steps are documented.
+- Deployment steps are selected from the matching guide in `docs/deployment/`.
 
 ### Definition of Done
 
@@ -344,7 +346,7 @@ Do not commit production `.env` files or provider secrets.
 - Add project filtering by technology.
 - Add automated accessibility checks.
 - Add Playwright smoke tests.
-- Add deployment documentation for multiple hosting options.
+- Add deeper provider-specific deployment automation notes after a real deployment path is selected.
 - Consider TypeScript later if it becomes useful.
 
 ## Public Repository Notes
