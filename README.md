@@ -128,6 +128,11 @@ Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it i
 6. Create and publish at least one Project entry in WordPress. Assign
    Technology terms if you want them to appear on the frontend.
 
+7. Optional: manage footer profile links in WordPress under
+   `Projects` -> `Site Profile Settings`. The custom plugin stores the CV,
+   GitHub, LinkedIn, and personal website URLs as WordPress options and exposes
+   them through the `projectContentSettings` WPGraphQL field.
+
 The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so the `Project Content` plugin is available to activate from the WordPress plugins screen.
 
 Local changes to `wordpress/plugins/project-content` are available inside WordPress immediately.
@@ -201,6 +206,19 @@ query GetProjectsForFrontend {
         }
       }
     }
+  }
+}
+```
+
+Run this query to confirm footer profile settings are available:
+
+```graphql
+query GetProjectContentSettings {
+  projectContentSettings {
+    cvUrl
+    githubUrl
+    linkedinUrl
+    websiteUrl
   }
 }
 ```

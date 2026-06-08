@@ -58,6 +58,7 @@ Responsibilities:
 
 - Register custom post types.
 - Register custom taxonomies.
+- Register small project-specific admin settings.
 - Expose content to the API layer.
 - Keep content modeling separate from presentation.
 
@@ -147,6 +148,26 @@ Project Pages
 ```
 
 The local flow has been validated with a published WordPress `Project` entry and associated `Technology` terms. WPGraphQL returns the custom content model, and the Next.js frontend renders the project listing and detail route from the normalized GraphQL response.
+
+### Site Profile Settings Flow
+
+```txt
+WordPress Admin
+    |
+    v
+Project Content plugin options
+    |
+    v
+projectContentSettings WPGraphQL root field
+    |
+    v
+apps/web/lib/wordpress.js
+    |
+    v
+Next.js Footer
+```
+
+The Project Content plugin provides a small `Site Profile Settings` admin page under the Projects menu. Administrators can manage the public CV, GitHub, LinkedIn, and personal website URLs there instead of hardcoding profile links in the frontend. The plugin stores those values as WordPress options, sanitizes them as HTTP(S) URLs, exposes them through WPGraphQL, and the Next.js footer renders only the links that are configured.
 
 ## API Strategy
 

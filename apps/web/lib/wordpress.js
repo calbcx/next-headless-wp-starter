@@ -93,6 +93,33 @@ function normalizeProject(node) {
   };
 }
 
+function normalizeUrl(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return "";
+  }
+
+  try {
+    const url = new URL(value);
+
+    if (!["http:", "https:"].includes(url.protocol)) {
+      return "";
+    }
+
+    return url.toString();
+  } catch {
+    return "";
+  }
+}
+
+function normalizeProjectContentSettings(settings) {
+  return {
+    cvUrl: normalizeUrl(settings?.cvUrl),
+    githubUrl: normalizeUrl(settings?.githubUrl),
+    linkedinUrl: normalizeUrl(settings?.linkedinUrl),
+    websiteUrl: normalizeUrl(settings?.websiteUrl)
+  };
+}
+
 export async function getProjects() {
   const data = await fetchGraphQL(`
     query GetProjects {
@@ -164,4 +191,19 @@ export async function getTechnologies() {
       count: Number.isFinite(node?.count) ? node.count : 0
     }))
     .filter((technology) => technology.slug);
+}
+
+export async function getProjectContentSettings() {
+  const data = await fetchGraphQL(`
+    query GetProjectContentSettings {
+      projectContentSettings {
+        cvUrl
+        githubUrl
+        linkedinUrl
+        websiteUrl
+      }
+    }
+  `);
+
+  return normalizeProjectContentSettings(data?.projectContentSettings);
 }

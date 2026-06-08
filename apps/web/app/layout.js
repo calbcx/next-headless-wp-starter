@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { getProjectContentSettings } from "@/lib/wordpress";
 import "./globals.css";
 
 function getSiteUrl() {
@@ -22,14 +23,16 @@ export const metadata = {
   }
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const projectContentSettings = await getProjectContentSettings();
+
   return (
     <html lang="en">
       <body>
         <div className="site-shell">
           <Header />
           <main className="site-main">{children}</main>
-          <Footer />
+          <Footer settings={projectContentSettings} />
         </div>
       </body>
     </html>

@@ -81,6 +81,7 @@ wordpress/*.php
 wordpress/plugins/*
 !wordpress/plugins/project-content/
 !wordpress/plugins/project-content/**
+wordpress/plugins/project-content/**/.DS_Store
 
 # Ignore plugin build/dependency artifacts
 wordpress/plugins/**/vendor/

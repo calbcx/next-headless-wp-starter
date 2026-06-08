@@ -4,7 +4,6 @@
  * Description: Registers project content types and taxonomies for the headless WordPress frontend.
  * Version: 0.1.0
  * Author: nextjs-headless-wordpress
- * License: GPL-2.0-or-later
  * Text Domain: project-content
  *
  * @package ProjectContent
@@ -18,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 const PROJECT_POST_TYPE = 'project';
 const TECHNOLOGY_TAXONOMY = 'technology';
+
+require_once __DIR__ . '/includes/settings.php';
+require_once __DIR__ . '/includes/graphql.php';
 
 /**
  * Register content types when WordPress initializes.

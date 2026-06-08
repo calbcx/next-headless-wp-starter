@@ -77,10 +77,29 @@ a:hover {
   font-size: 0.95rem;
 }
 
-.site-footer {
+.portfolio-footer {
   border-top: 1px solid var(--border);
   color: var(--text-muted);
   padding: 28px 0;
+}
+
+.portfolio-footer__profile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.portfolio-footer__profile-bar p {
+  margin: 0;
+}
+
+.portfolio-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .page-section {
@@ -267,6 +286,11 @@ a:hover {
 
   .site-nav {
     flex-wrap: wrap;
+  }
+
+  .portfolio-footer__profile-bar {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .grid,
