@@ -45,14 +45,25 @@ cPanel is documented primarily as a WordPress CMS hosting option. Hosting the Ne
 
 AWS Amplify is documented as a frontend hosting option, but its Next.js runtime support should be checked against the version in `apps/web/package.json` before deployment.
 
-## Deployment Checklist
+## Shared Deployment Guides
 
-- WordPress is reachable over HTTPS.
-- WPGraphQL is installed and active.
-- `Project Content` is active from `wordpress/plugins/project-content`.
-- Published Project entries exist in WordPress.
-- The frontend host has `WORDPRESS_GRAPHQL_URL` configured.
-- The frontend host has `NEXT_PUBLIC_SITE_URL` configured.
-- `npm run lint` passes in `apps/web`.
-- `npm run build` passes in `apps/web`.
-- No secrets or production exports are committed.
+- [`pre-deployment-checklist.md`](./pre-deployment-checklist.md): readiness checks before deploying WordPress and the frontend.
+- [`post-deployment-validation.md`](./post-deployment-validation.md): validation steps after the CMS and frontend are live.
+- [`migration-notes.md`](./migration-notes.md): notes for moving local WordPress data or changing documented hosts.
+- [`operations.md`](./operations.md): lightweight support and maintenance tasks after deployment.
+- [`environment-variables.md`](./environment-variables.md): required deployment environment variables.
+- [`troubleshooting.md`](./troubleshooting.md): common deployment and content rendering issues.
+
+## Provider Pair Guides
+
+- [`cpanel-wordpress-vercel-frontend.md`](./cpanel-wordpress-vercel-frontend.md)
+- [`cpanel-wordpress-aws-amplify-frontend.md`](./cpanel-wordpress-aws-amplify-frontend.md)
+- [`aws-lightsail-wordpress-vercel-frontend.md`](./aws-lightsail-wordpress-vercel-frontend.md)
+- [`aws-lightsail-wordpress-aws-amplify-frontend.md`](./aws-lightsail-wordpress-aws-amplify-frontend.md)
+
+## Quick Deployment Checklist
+
+- Choose a documented WordPress host and frontend host pairing.
+- Run [`pre-deployment-checklist.md`](./pre-deployment-checklist.md) before launch.
+- Run [`post-deployment-validation.md`](./post-deployment-validation.md) after the CMS and frontend are live.
+- Keep secrets, database exports, uploads, and provider backup files out of the repository.

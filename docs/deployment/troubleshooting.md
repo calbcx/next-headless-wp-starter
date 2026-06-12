@@ -6,11 +6,8 @@ Use this checklist when the deployed frontend cannot render WordPress content.
 
 Check:
 
-- `WORDPRESS_GRAPHQL_URL` is configured in the frontend host.
-- The value points to the production WordPress GraphQL endpoint.
-- `WPGraphQL` is installed and active in WordPress.
-- `Project Content` is active in WordPress.
-- At least one Project entry is published.
+- Run the environment, WordPress, and GraphQL checks in [`post-deployment-validation.md`](./post-deployment-validation.md).
+- The frontend host is not serving an old deployment built before the environment variables were added.
 - Technology terms are assigned if `/technologies` is expected to show entries.
 
 ## GraphQL Endpoint Does Not Respond
@@ -21,6 +18,8 @@ Check:
 - The URL ends with `/graphql`.
 - Security plugins, firewall rules, or host-level settings are not blocking GraphQL requests.
 - WPGraphQL is active and compatible with the WordPress version.
+- The endpoint accepts POST requests, not only browser GET requests.
+- Any CDN or proxy in front of WordPress is not redirecting `/graphql` to a login, challenge, or maintenance page.
 
 ## Build Fails on Frontend Host
 
@@ -48,6 +47,25 @@ Check:
 - Project slugs are present.
 - Technology terms are assigned to Project entries.
 - The frontend was rebuilt or revalidated after content changes if the deployed host caches static output.
+- The WordPress migration did not change expected slugs.
+- The frontend detail URL uses the current WordPress slug.
+
+## Footer Profile Links Are Missing
+
+Check:
+
+- Values are saved in WordPress under `Projects` -> `Site Profile Settings`.
+- The `projectContentSettings` query returns values in WPGraphQL.
+- The URLs are valid `http` or `https` links.
+- The frontend was rebuilt or revalidated after the values changed.
+- The footer renders only configured links, so empty settings are expected to be hidden.
+
+## Migration Issues
+
+Check:
+
+- Run the content migration checks in [`migration-notes.md`](./migration-notes.md), then validate with [`post-deployment-validation.md`](./post-deployment-validation.md).
+- `WORDPRESS_GRAPHQL_URL` was updated in the frontend host after changing the WordPress URL.
 
 ## Security Checks
 

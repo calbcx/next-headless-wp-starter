@@ -105,6 +105,8 @@ Next.js:   http://localhost:3000
 
 Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it is not exposed on the wider network by default.
 
+The Compose setup is for local development only; it is not a production deployment target for this project.
+
 ### Setup
 
 1. Copy the root Docker environment example:
@@ -265,6 +267,10 @@ Start with [`docs/deployment/overview.md`](./docs/deployment/overview.md), then 
 - [`security.md`](./security.md): security expectations for the public repository
 - [`docs/architecture.md`](./docs/architecture.md): architecture overview and decisions
 - [`docs/deployment/overview.md`](./docs/deployment/overview.md): deployment options and shared checklist
+- [`docs/deployment/pre-deployment-checklist.md`](./docs/deployment/pre-deployment-checklist.md): checks before deploying WordPress and the frontend
+- [`docs/deployment/post-deployment-validation.md`](./docs/deployment/post-deployment-validation.md): checks after a deployment is live
+- [`docs/deployment/migration-notes.md`](./docs/deployment/migration-notes.md): notes for moving WordPress content or changing deployment targets
+- [`docs/deployment/operations.md`](./docs/deployment/operations.md): lightweight deployed-site support tasks
 - [`docs/deployment/environment-variables.md`](./docs/deployment/environment-variables.md): production environment variable contract
 - [`docs/deployment/cpanel-wordpress-vercel-frontend.md`](./docs/deployment/cpanel-wordpress-vercel-frontend.md): cPanel WordPress with Vercel frontend
 - [`docs/deployment/cpanel-wordpress-aws-amplify-frontend.md`](./docs/deployment/cpanel-wordpress-aws-amplify-frontend.md): cPanel WordPress with AWS Amplify frontend

@@ -152,27 +152,29 @@ function posted_profile_link_text( $option ) {
  * @return string
  */
 function clean_footer_profile_link( $value ) {
-	if ( ! current_user_can( CAPABILITY ) ) {
-		return '';
-	}
-
 	$profile_link = trim( (string) $value );
 
 	if ( '' === $profile_link ) {
 		return '';
 	}
 
-	if ( false === strpos( $profile_link, '://' ) ) {
-		$profile_link = 'https://' . $profile_link;
+	$url = esc_url_raw( add_default_url_scheme( $profile_link ), [ 'http', 'https' ] );
+
+	return wp_http_validate_url( $url ) ? $url : '';
+}
+
+/**
+ * Add HTTPS to profile links submitted without a URL scheme.
+ *
+ * @param string $url Submitted URL.
+ * @return string
+ */
+function add_default_url_scheme( $url ) {
+	if ( false !== strpos( $url, '://' ) ) {
+		return $url;
 	}
 
-	$profile_link = esc_url_raw( $profile_link, [ 'http', 'https' ] );
-
-	if ( ! wp_http_validate_url( $profile_link ) ) {
-		return '';
-	}
-
-	return $profile_link;
+	return 'https://' . $url;
 }
 
 /**
