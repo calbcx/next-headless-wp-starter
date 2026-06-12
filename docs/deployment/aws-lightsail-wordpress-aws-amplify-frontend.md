@@ -18,6 +18,8 @@ Lightsail hosts the WordPress CMS. Amplify hosts the JavaScript Next.js frontend
    https://<wordpress-host>/graphql
    ```
 
+If the Lightsail instance provides SSH and WP-CLI, [`wp-cli.md`](./wp-cli.md) can be used for the plugin installation and activation steps.
+
 ## Frontend on AWS Amplify
 
 1. Create an Amplify app connected to the repository.

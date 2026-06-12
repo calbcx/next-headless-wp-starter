@@ -18,6 +18,8 @@ cPanel is used here as a WordPress hosting option. This guide does not assume cP
    https://<wordpress-host>/graphql
    ```
 
+If the cPanel account provides SSH and WP-CLI, [`wp-cli.md`](./wp-cli.md) can be used for the plugin installation and activation steps.
+
 ## Frontend on Vercel
 
 1. Create a Vercel project from the repository.

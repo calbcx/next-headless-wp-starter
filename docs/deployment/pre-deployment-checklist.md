@@ -26,6 +26,7 @@ This project is not a full production operations template. The goal is to confir
 - Enable two-factor authentication if the host or plugin stack supports it.
 - Install and activate `WPGraphQL`.
 - Deploy and activate the custom `Project Content` plugin from `wordpress/plugins/project-content`.
+- If the host supports SSH and WP-CLI, [`wp-cli.md`](./wp-cli.md) can be used for plugin installation and activation.
 - Confirm the `Projects` admin menu appears.
 - Confirm `Projects` -> `Site Profile Settings` appears if footer profile links are used.
 - Publish at least one Project entry before validating the frontend.

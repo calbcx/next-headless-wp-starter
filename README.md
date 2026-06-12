@@ -271,6 +271,7 @@ Start with [`docs/deployment/overview.md`](./docs/deployment/overview.md), then 
 - [`docs/deployment/post-deployment-validation.md`](./docs/deployment/post-deployment-validation.md): checks after a deployment is live
 - [`docs/deployment/migration-notes.md`](./docs/deployment/migration-notes.md): notes for moving WordPress content or changing deployment targets
 - [`docs/deployment/operations.md`](./docs/deployment/operations.md): lightweight deployed-site support tasks
+- [`docs/deployment/wp-cli.md`](./docs/deployment/wp-cli.md): optional WP-CLI commands for WordPress plugin deployment
 - [`docs/deployment/environment-variables.md`](./docs/deployment/environment-variables.md): production environment variable contract
 - [`docs/deployment/cpanel-wordpress-vercel-frontend.md`](./docs/deployment/cpanel-wordpress-vercel-frontend.md): cPanel WordPress with Vercel frontend
 - [`docs/deployment/cpanel-wordpress-aws-amplify-frontend.md`](./docs/deployment/cpanel-wordpress-aws-amplify-frontend.md): cPanel WordPress with AWS Amplify frontend

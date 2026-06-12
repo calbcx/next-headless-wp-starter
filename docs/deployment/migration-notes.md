@@ -40,7 +40,7 @@ If a database export is needed for a migration, transfer it outside Git using th
 
 1. Create or choose the hosted WordPress install.
 2. Install and activate `WPGraphQL`.
-3. Upload or deploy `wordpress/plugins/project-content` as the `project-content` plugin folder under `wp-content/plugins`, or upload a zip that expands to that folder.
+3. Upload or deploy `wordpress/plugins/project-content` as the `project-content` plugin folder under `wp-content/plugins`, or upload a zip that expands to that folder. If the host supports SSH and WP-CLI, use [`wp-cli.md`](./wp-cli.md) for the plugin deployment commands.
 4. Activate `Project Content`.
 5. Recreate or migrate Project entries and Technology terms.
 6. Recreate Site Profile Settings values under `Projects` -> `Site Profile Settings`.

@@ -51,6 +51,7 @@ For `WPGraphQL` and other third-party plugins:
 For the custom `Project Content` plugin:
 
 - Deploy the updated plugin files from `wordpress/plugins/project-content`.
+- If the host supports SSH and WP-CLI, use [`wp-cli.md`](./wp-cli.md) to install and activate the packaged plugin.
 - Confirm the plugin remains active.
 - Confirm Projects and Technologies still appear in WordPress admin.
 - Confirm custom GraphQL fields still resolve.

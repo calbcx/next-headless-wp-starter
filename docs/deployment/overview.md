@@ -51,6 +51,7 @@ AWS Amplify is documented as a frontend hosting option, but its Next.js runtime 
 - [`post-deployment-validation.md`](./post-deployment-validation.md): validation steps after the CMS and frontend are live.
 - [`migration-notes.md`](./migration-notes.md): notes for moving local WordPress data or changing documented hosts.
 - [`operations.md`](./operations.md): lightweight support and maintenance tasks after deployment.
+- [`wp-cli.md`](./wp-cli.md): optional WP-CLI commands for installing and updating WordPress plugins.
 - [`environment-variables.md`](./environment-variables.md): required deployment environment variables.
 - [`troubleshooting.md`](./troubleshooting.md): common deployment and content rendering issues.
 
