@@ -125,7 +125,7 @@ The initial frontend keeps WordPress data access in:
 apps/web/lib/wordpress.js
 ```
 
-That module reads `WORDPRESS_GRAPHQL_URL`, performs GraphQL requests, handles missing or unexpected responses defensively, and normalizes WordPress project and technology data into simple JavaScript objects before passing it to components.
+That module reads `WORDPRESS_GRAPHQL_URL`, performs GraphQL requests, and normalizes WordPress project and technology data into simple JavaScript objects before passing it to components. An unconfigured endpoint produces empty WordPress-backed sections for local setup and CI, while a configured endpoint that cannot be reached or returns GraphQL errors raises a typed fetch error so builds and routes fail visibly. Logged WordPress request errors redact URL credentials, query strings, and hash fragments.
 
 ## Data Flow
 

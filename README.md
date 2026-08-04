@@ -54,6 +54,8 @@ docker-compose.yml
 apps/
   web/
     app/
+      error.js
+      global-error.js
       layout.js
       page.js
       globals.css
@@ -177,7 +179,7 @@ npm run lint
 npm run build
 ```
 
-The frontend can build without `WORDPRESS_GRAPHQL_URL` configured. In that case, WordPress-backed sections render empty states until WPGraphQL is running and `apps/web/.env.local` is configured.
+The frontend can build without `WORDPRESS_GRAPHQL_URL` configured. In that case, WordPress-backed sections render empty states until WPGraphQL is running and `apps/web/.env.local` is configured. If `WORDPRESS_GRAPHQL_URL` is configured but the endpoint is unreachable, returns a non-OK response, or returns GraphQL errors, the build fails with the WordPress request error instead of silently rendering empty states. Logged WordPress request errors redact URL credentials, query strings, and hash fragments.
 
 ### Continuous Integration
 

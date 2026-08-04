@@ -14,6 +14,116 @@ const PROJECT_FIELDS = `
   }
 `;
 
+function redactEndpointForError(endpoint) {
+  if (typeof endpoint !== "string" || !endpoint.trim()) {
+    return "configured WordPress endpoint";
+  }
+
+  try {
+    const url = new URL(endpoint);
+
+    if (url.username) {
+      url.username = "redacted";
+    }
+
+    if (url.password) {
+      url.password = "redacted";
+    }
+
+    url.search = "";
+    url.hash = "";
+
+    return url.toString();
+  } catch {
+    return "configured WordPress endpoint";
+  }
+}
+
+function redactMessageForError(message, endpoint) {
+  if (typeof message !== "string" || !message.trim()) {
+    return "Network request failed.";
+  }
+
+  if (typeof endpoint !== "string" || !endpoint.trim()) {
+    return message;
+  }
+
+  return message.replaceAll(endpoint, redactEndpointForError(endpoint));
+}
+
+export class WordPressFetchError extends Error {
+  /**
+   * Create an error for configured WordPress requests that cannot be trusted.
+   *
+   * @param {object} options Error details.
+   * @param {string} options.endpoint Configured GraphQL endpoint.
+   * @param {number|null} [options.status] HTTP status, when available.
+   * @param {string} options.message Failure detail.
+   * @param {string} [options.graphQLError] First GraphQL error message.
+   * @param {unknown} [options.cause] Original error.
+   */
+  constructor({ endpoint, status = null, message, graphQLError = "", cause }) {
+    const safeEndpoint = redactEndpointForError(endpoint);
+    const statusLabel = status ?? "unavailable";
+    const graphQLDetail = graphQLError
+      ? ` First GraphQL error: ${graphQLError}`
+      : "";
+    const errorMessage = `WordPress GraphQL request failed for ${safeEndpoint} (status: ${statusLabel}): ${message}${graphQLDetail}`;
+
+    if (cause === undefined) {
+      super(errorMessage);
+    } else {
+      super(errorMessage, { cause });
+    }
+
+    this.name = "WordPressFetchError";
+    this.endpoint = safeEndpoint;
+    this.status = status;
+    this.graphQLError = graphQLError;
+  }
+}
+
+function getFirstGraphQLError(payload) {
+  if (!Array.isArray(payload?.errors) || payload.errors.length === 0) {
+    return "";
+  }
+
+  const firstError = payload.errors[0];
+
+  if (typeof firstError?.message === "string" && firstError.message.trim()) {
+    return firstError.message.trim();
+  }
+
+  if (typeof firstError === "string" && firstError.trim()) {
+    return firstError.trim();
+  }
+
+  return "Unknown GraphQL error";
+}
+
+async function readGraphQLPayload(response, endpoint) {
+  const responseText = await response.text();
+
+  if (!responseText) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(responseText);
+  } catch (error) {
+    if (!response.ok) {
+      return {};
+    }
+
+    throw new WordPressFetchError({
+      endpoint,
+      status: response.status,
+      message: "Invalid JSON response.",
+      cause: error
+    });
+  }
+}
+
 /**
  * Run a GraphQL request against the configured WordPress endpoint.
  *
@@ -29,8 +139,10 @@ async function fetchGraphQL(query, variables = {}) {
     return null;
   }
 
+  let response;
+
   try {
-    const response = await fetch(endpoint, {
+    response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -38,24 +150,52 @@ async function fetchGraphQL(query, variables = {}) {
       body: JSON.stringify({ query, variables }),
       next: { revalidate: 60 }
     });
-
-    if (!response.ok) {
-      console.warn(`WordPress GraphQL request failed: ${response.status}`);
-      return null;
-    }
-
-    const payload = await response.json();
-
-    if (Array.isArray(payload.errors) && payload.errors.length > 0) {
-      console.warn("WordPress GraphQL returned errors.", payload.errors);
-      return null;
-    }
-
-    return payload.data ?? null;
   } catch (error) {
-    console.warn("WordPress GraphQL request could not be completed.", error);
-    return null;
+    throw new WordPressFetchError({
+      endpoint,
+      message:
+        error instanceof Error
+          ? redactMessageForError(error.message, endpoint)
+          : "Network request failed."
+    });
   }
+
+  const payload = await readGraphQLPayload(response, endpoint);
+  const graphQLError = getFirstGraphQLError(payload);
+
+  if (!response.ok) {
+    throw new WordPressFetchError({
+      endpoint,
+      status: response.status,
+      message: `HTTP ${response.status} ${response.statusText || "response"}.`,
+      graphQLError
+    });
+  }
+
+  if (graphQLError) {
+    throw new WordPressFetchError({
+      endpoint,
+      status: response.status,
+      message: "GraphQL response contained errors.",
+      graphQLError
+    });
+  }
+
+  if (
+    !payload ||
+    typeof payload !== "object" ||
+    !Object.hasOwn(payload, "data") ||
+    !payload.data ||
+    typeof payload.data !== "object"
+  ) {
+    throw new WordPressFetchError({
+      endpoint,
+      status: response.status,
+      message: "GraphQL response did not include a data object."
+    });
+  }
+
+  return payload.data;
 }
 
 function normalizeText(value) {
