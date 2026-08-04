@@ -168,6 +168,10 @@ Recommended practices:
 - Keep response normalization inside the WordPress helper module.
 - Avoid exposing server-only values to client components.
 
+WordPress request errors should not log full endpoint URLs. The frontend's
+typed WordPress fetch errors redact URL credentials, query strings, and hash
+fragments before writing endpoint details to build or server logs.
+
 ### Rendering Content
 
 Content from WordPress should be treated carefully.
