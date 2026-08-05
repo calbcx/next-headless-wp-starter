@@ -89,7 +89,7 @@ apps/
 
 Local development uses:
 
-- WordPress running in Docker
+- WordPress 7.0 running on PHP 8.3 in Docker
 - MySQL running in Docker
 - Next.js running from `apps/web`
 
@@ -107,7 +107,7 @@ Next.js:   http://localhost:3000
 
 Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it is not exposed on the wider network by default.
 
-The Compose setup is for local development only; it is not a production deployment target for this project.
+The Compose setup uses the `wordpress:7.0-php8.3-apache` Docker image for a current local WordPress baseline. It is for local development only; it is not a production deployment target for this project.
 
 ### Setup
 

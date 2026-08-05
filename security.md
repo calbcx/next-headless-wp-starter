@@ -198,6 +198,9 @@ npm run build
 
 The Docker setup is intended for local development.
 
+The local WordPress container uses `wordpress:7.0-php8.3-apache` to keep the
+development CMS on a current WordPress branch and supported PHP baseline.
+
 Do not use local development credentials in production.
 
 Local database passwords in `.env.example` are placeholders only.
