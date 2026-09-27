@@ -90,7 +90,7 @@ apps/
 Local development uses:
 
 - WordPress 7.1.2 running on PHP 8.3 in Docker
-- MySQL running in Docker
+- MySQL 8.4 LTS running in Docker
 - Next.js running from `apps/web`
 
 Requirements:
@@ -108,6 +108,16 @@ Next.js:   http://localhost:3000
 Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it is not exposed on the wider network by default.
 
 The Compose setup pins the Docker Official Image `wordpress:7.1.2-php8.3-apache` for a reproducible local WordPress baseline. Review and update this pin when WordPress security or maintenance releases ship. It is for local development only; it is not a production deployment target for this project.
+
+The database uses the Docker Official Image `mysql:8.4`, which tracks patch
+releases within the 8.4 LTS series. New database accounts use the default
+`caching_sha2_password` authentication. WordPress waits for the database health
+check before starting.
+
+If you already have local MySQL 8.0 content, follow the
+[MySQL upgrade guide](./docs/local-mysql-upgrade.md) before starting this setup.
+MySQL 8.4 uses a new `mysql84_data` volume; existing `mysql_data` content must be
+exported and imported to appear in the updated installation.
 
 ### Setup
 

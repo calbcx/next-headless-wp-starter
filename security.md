@@ -213,6 +213,13 @@ The local WordPress container pins the Docker Official Image
 maintenance releases ship, and verify the installed core version after an image
 update because existing WordPress files can persist in a Docker volume.
 
+The database uses `mysql:8.4` for the 8.4 LTS series and its default
+`caching_sha2_password` authentication. Pull updated images periodically and
+validate the local integration after updates. Existing MySQL 8.0 data must be
+exported and imported using the [local migration guide](./docs/local-mysql-upgrade.md).
+Import only the WordPress database; let the new image initialize database accounts
+so legacy authentication settings are not carried over from MySQL system tables.
+
 Do not use local development credentials in production.
 
 Local database passwords in `.env.example` are placeholders only.
