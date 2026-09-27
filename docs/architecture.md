@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a headless WordPress reference application built around an example-driven content model.
+This project is a headless WordPress starter built around an example-driven content model.
 
 WordPress is used as the content management system. Next.js is used as the public frontend. The frontend uses JavaScript.
 

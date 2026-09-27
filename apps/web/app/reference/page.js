@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Implementation reference notes for the headless WordPress and Next.js architecture.",
   openGraph: {
-    title: "Reference | Headless WordPress Reference",
+    title: "Reference | Next Headless WP Starter",
     description:
       "Implementation reference notes for the headless WordPress and Next.js architecture."
   }

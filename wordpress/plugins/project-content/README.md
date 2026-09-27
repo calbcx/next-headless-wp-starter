@@ -1,6 +1,6 @@
 # Project Content
 
-Custom WordPress plugin for the project content model used by this headless WordPress reference project.
+Custom WordPress plugin for the project content model used by this headless WordPress starter.
 
 The plugin registers:
 

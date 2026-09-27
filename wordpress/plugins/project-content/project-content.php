@@ -3,7 +3,7 @@
  * Plugin Name: Project Content
  * Description: Registers project content types and taxonomies for the headless WordPress frontend.
  * Version: 0.2.0
- * Author: nextjs-headless-wordpress
+ * Author: Next Headless WP Starter
  * Text Domain: project-content
  *
  * @package ProjectContent

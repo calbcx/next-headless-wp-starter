@@ -7,11 +7,11 @@ import { getProjects, getTechnologies } from "@/lib/wordpress";
 export const metadata = {
   title: "Home",
   description:
-    "A developer-focused headless WordPress reference frontend built with Next.js, JavaScript, and WPGraphQL.",
+    "A developer-focused headless WordPress starter frontend built with Next.js, JavaScript, and WPGraphQL.",
   openGraph: {
-    title: "Headless WordPress Reference",
+    title: "Next Headless WP Starter",
     description:
-      "A developer-focused headless WordPress reference frontend built with Next.js, JavaScript, and WPGraphQL."
+      "A developer-focused headless WordPress starter frontend built with Next.js, JavaScript, and WPGraphQL."
   }
 };
 

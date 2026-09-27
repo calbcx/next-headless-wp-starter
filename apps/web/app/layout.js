@@ -10,15 +10,15 @@ function getSiteUrl() {
 export const metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Headless WordPress Reference",
-    template: "%s | Headless WordPress Reference"
+    default: "Next Headless WP Starter",
+    template: "%s | Next Headless WP Starter"
   },
   description:
-    "A developer-focused headless WordPress reference project using Next.js, JavaScript, and WPGraphQL.",
+    "A developer-focused headless WordPress starter using Next.js, JavaScript, and WPGraphQL.",
   openGraph: {
-    title: "Headless WordPress Reference",
+    title: "Next Headless WP Starter",
     description:
-      "A developer-focused headless WordPress reference project using Next.js, JavaScript, and WPGraphQL.",
+      "A developer-focused headless WordPress starter using Next.js, JavaScript, and WPGraphQL.",
     type: "website"
   }
 };

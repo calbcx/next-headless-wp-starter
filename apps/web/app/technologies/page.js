@@ -7,7 +7,7 @@ export const metadata = {
   description:
     "Technology terms managed in WordPress and exposed through WPGraphQL.",
   openGraph: {
-    title: "Technologies | Headless WordPress Reference",
+    title: "Technologies | Next Headless WP Starter",
     description:
       "Technology terms managed in WordPress and exposed through WPGraphQL."
   }

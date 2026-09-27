@@ -7,7 +7,7 @@ export const metadata = {
   description:
     "Project entries managed in WordPress and rendered by the Next.js frontend.",
   openGraph: {
-    title: "Projects | Headless WordPress Reference",
+    title: "Projects | Next Headless WP Starter",
     description:
       "Project entries managed in WordPress and rendered by the Next.js frontend."
   }

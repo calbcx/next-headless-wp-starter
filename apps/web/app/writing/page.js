@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Technical writing route reserved for future WordPress-managed writeups.",
   openGraph: {
-    title: "Writing | Headless WordPress Reference",
+    title: "Writing | Next Headless WP Starter",
     description:
       "Technical writing route reserved for future WordPress-managed writeups."
   }
