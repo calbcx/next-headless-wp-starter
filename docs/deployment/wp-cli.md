@@ -34,6 +34,9 @@ If WP-CLI reports that it cannot find WordPress, confirm the current directory c
 
 Install and activate WPGraphQL from the WordPress plugin repository:
 
+Use version 2.23.1 or newer, and keep it updated; see
+[`security.md`](../../security.md).
+
 ```bash
 wp plugin install wp-graphql --activate
 ```

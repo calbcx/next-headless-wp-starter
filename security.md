@@ -85,6 +85,10 @@ Avoid installing plugins that are not needed for the project.
 
 WPGraphQL is required for the headless frontend integration, but it should not be bundled into this repository. Install and update it through WordPress admin or the deployment environment's plugin management process so third-party plugin security updates remain part of normal WordPress maintenance.
 
+Use WPGraphQL 2.23.1 or newer, and keep it updated as new releases ship.
+The frontend npm audit does not check WordPress plugins; verify their versions
+separately on each WordPress installation.
+
 ### Custom Plugin Security
 
 The custom plugin should follow WordPress security practices.
@@ -170,7 +174,12 @@ Recommended practices:
 
 WordPress request errors should not log full endpoint URLs. The frontend's
 typed WordPress fetch errors redact URL credentials, query strings, and hash
-fragments before writing endpoint details to build or server logs.
+fragments in endpoint details, network messages, and GraphQL error messages.
+Both the error message and stored GraphQL error field use redacted values.
+Raw JSON parser errors are not retained as causes because their messages can
+contain response body excerpts. This sacrifices parser-level diagnostics to
+keep those excerpts out of logs. Redaction does not make arbitrary upstream
+text safe: keep sensitive data out of CMS error messages, including URL paths.
 
 ### Rendering Content
 
@@ -191,6 +200,7 @@ Suggested frontend commands:
 ```bash
 npm audit
 npm run lint
+npm test
 npm run build
 ```
 
