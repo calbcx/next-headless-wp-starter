@@ -272,6 +272,15 @@ This keeps the setup simple while still demonstrating practical local infrastruc
 
 The WordPress container publishes HTTP on `127.0.0.1:8080`, keeping the local CMS bound to the developer machine by default.
 
+MySQL uses the Docker Official Image `mysql:8.4` and the `mysql84_data` named
+volume. The tag tracks patch releases within the 8.4 LTS series. New accounts use
+`caching_sha2_password`, and WordPress waits for MySQL's TCP health check before
+starting. Database ports are available only on the Docker network.
+
+Existing MySQL 8.0 installations need a logical export/import into the new volume.
+The former `mysql_data` volume remains available for rollback until it is
+explicitly removed. See [the local MySQL upgrade guide](./local-mysql-upgrade.md).
+
 ## Suggested Local URLs
 
 ```txt
