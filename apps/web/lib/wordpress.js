@@ -44,11 +44,13 @@ function redactMessageForError(message, endpoint) {
     return "Network request failed.";
   }
 
-  if (typeof endpoint !== "string" || !endpoint.trim()) {
-    return message;
-  }
+  const safeMessage =
+    typeof endpoint === "string" && endpoint.trim()
+      ? message.replaceAll(endpoint, redactEndpointForError(endpoint))
+      : message;
 
-  return message.replaceAll(endpoint, redactEndpointForError(endpoint));
+  // Upstream errors may normalize the URL or omit its fragment.
+  return safeMessage.replace(/https?:\/\/[^\s"'<>]+/gi, redactEndpointForError);
 }
 
 export class WordPressFetchError extends Error {
@@ -60,26 +62,25 @@ export class WordPressFetchError extends Error {
    * @param {number|null} [options.status] HTTP status, when available.
    * @param {string} options.message Failure detail.
    * @param {string} [options.graphQLError] First GraphQL error message.
-   * @param {unknown} [options.cause] Original error.
    */
-  constructor({ endpoint, status = null, message, graphQLError = "", cause }) {
+  constructor({ endpoint, status = null, message, graphQLError = "" }) {
     const safeEndpoint = redactEndpointForError(endpoint);
-    const statusLabel = status ?? "unavailable";
-    const graphQLDetail = graphQLError
-      ? ` First GraphQL error: ${graphQLError}`
+    const safeMessage = redactMessageForError(message, endpoint);
+    const safeGraphQLError = graphQLError
+      ? redactMessageForError(graphQLError, endpoint)
       : "";
-    const errorMessage = `WordPress GraphQL request failed for ${safeEndpoint} (status: ${statusLabel}): ${message}${graphQLDetail}`;
+    const statusLabel = status ?? "unavailable";
+    const graphQLDetail = safeGraphQLError
+      ? ` First GraphQL error: ${safeGraphQLError}`
+      : "";
+    const errorMessage = `WordPress GraphQL request failed for ${safeEndpoint} (status: ${statusLabel}): ${safeMessage}${graphQLDetail}`;
 
-    if (cause === undefined) {
-      super(errorMessage);
-    } else {
-      super(errorMessage, { cause });
-    }
+    super(errorMessage);
 
     this.name = "WordPressFetchError";
     this.endpoint = safeEndpoint;
     this.status = status;
-    this.graphQLError = graphQLError;
+    this.graphQLError = safeGraphQLError;
   }
 }
 
@@ -110,7 +111,7 @@ async function readGraphQLPayload(response, endpoint) {
 
   try {
     return JSON.parse(responseText);
-  } catch (error) {
+  } catch {
     if (!response.ok) {
       return {};
     }
@@ -118,8 +119,8 @@ async function readGraphQLPayload(response, endpoint) {
     throw new WordPressFetchError({
       endpoint,
       status: response.status,
-      message: "Invalid JSON response.",
-      cause: error
+      // JSON parser errors can contain raw response body excerpts.
+      message: "Invalid JSON response."
     });
   }
 }
@@ -155,7 +156,7 @@ async function fetchGraphQL(query, variables = {}) {
       endpoint,
       message:
         error instanceof Error
-          ? redactMessageForError(error.message, endpoint)
+          ? error.message
           : "Network request failed."
     });
   }

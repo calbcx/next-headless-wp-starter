@@ -125,7 +125,7 @@ The Compose setup uses the `wordpress:7.0-php8.3-apache` Docker image for a curr
 
 3. Open `http://localhost:8080` and complete the WordPress install flow.
 
-4. In WordPress, install and activate `WPGraphQL`.
+4. In WordPress, install and activate `WPGraphQL` version 2.23.1 or newer.
 
 5. In WordPress, activate the `Project Content` plugin.
 
@@ -146,6 +146,10 @@ Local changes to `wordpress/plugins/project-content` are available inside WordPr
 `WPGraphQL` is a third-party WordPress plugin required for this project's frontend GraphQL integration. It is not bundled in this repository. Install and activate it through WordPress admin or through the plugin management process for the target WordPress environment.
 
 The repository includes only the custom `project-content` plugin. Third-party WordPress plugins are managed outside the repo so they can be updated through normal WordPress maintenance workflows.
+
+Use WPGraphQL 2.23.1 or newer and keep it updated.
+Update existing installations through WordPress admin or the
+[`WP-CLI guide`](./docs/deployment/wp-cli.md), then validate the frontend queries.
 
 ### Frontend Setup
 
@@ -176,6 +180,7 @@ Run validation from `apps/web` before committing frontend changes:
 
 ```bash
 npm run lint
+npm test
 npm run build
 ```
 
@@ -183,13 +188,17 @@ The frontend can build without `WORDPRESS_GRAPHQL_URL` configured. In that case,
 
 ### Continuous Integration
 
-This repository includes a GitHub Actions workflow for the frontend lint and build checks from `apps/web` on pushes to `main` and on pull requests:
+This repository includes a GitHub Actions workflow for the frontend lint, test, and build checks from `apps/web` on pushes to `main` and on pull requests:
 
 ```bash
 npm ci
 npm run lint
+npm test
 npm run build
 ```
+
+The tests use Node.js's built-in test runner and mocked WordPress responses to
+check error redaction and response handling without requiring a running CMS.
 
 ### Confirm WordPress Data
 
