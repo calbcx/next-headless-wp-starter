@@ -329,3 +329,10 @@ Use `.env.example` files for placeholder configuration only.
 ## Project Status
 
 The repository contains the local Docker WordPress environment, the custom `project-content` plugin, the JavaScript Next.js frontend, WordPress data-fetching helpers, public routes for projects and technologies, documentation, and an initial frontend CI workflow. Local WordPress content is not committed. Deployment remains the next project phase.
+
+## AI Assistance
+
+AI assistance has been used for project planning, documentation, example
+configuration, and application code. See [`plan.md`](./plan.md) for current
+status. The maintainer is responsible for project decisions, reviewing
+contributions, and validating behavior.
