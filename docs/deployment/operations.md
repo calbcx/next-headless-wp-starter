@@ -44,7 +44,7 @@ For `WPGraphQL` and other third-party plugins:
 - Review the plugin update notes.
 - Back up the WordPress site according to the host's process.
 - Update in staging if available.
-- For the single-host setup most users of this reference project will run, back up first and update during a low-traffic window.
+- For the single-host setup most users of this starter will run, back up first and update during a low-traffic window.
 - Confirm `/graphql` still responds.
 - Confirm `/projects` still renders on the frontend.
 

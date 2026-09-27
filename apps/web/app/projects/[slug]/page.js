@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
     title: project.title,
     description,
     openGraph: {
-      title: `${project.title} | Headless WordPress Reference`,
+      title: `${project.title} | Next Headless WP Starter`,
       description
     }
   };

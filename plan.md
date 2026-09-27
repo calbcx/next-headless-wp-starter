@@ -2,7 +2,7 @@
 
 ## Project Goal
 
-Build a developer-friendly headless WordPress reference application that uses WordPress as a content management system and Next.js as the frontend.
+Build a developer-friendly headless WordPress starter that uses WordPress as a content management system and Next.js as the frontend.
 
 The project is intended to demonstrate practical modern WordPress development, React/Next.js frontend development with JavaScript, content modeling, WPGraphQL-based architecture, local development setup, and production-oriented documentation.
 
@@ -71,7 +71,7 @@ Validated local checks:
 ## Suggested Repository Structure
 
 ```txt
-nextjs-headless-wordpress/
+next-headless-wp-starter/
   apps/
     web/
   wordpress/

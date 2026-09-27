@@ -12,7 +12,7 @@ export default function Header() {
     <header className="site-header">
       <div className="container site-header__inner">
         <Link className="site-header__brand" href="/">
-          Next.js Headless WordPress
+          Next Headless WP Starter
         </Link>
         <nav className="site-nav" aria-label="Primary navigation">
           {navigationItems.map((item) => (

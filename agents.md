@@ -309,6 +309,6 @@ When working on this repository:
 
 ## Project Tone
 
-This is a developer-focused reference project built around a project and case-study content model.
+This is a developer-focused starter built around a project and case-study content model.
 
 The code and documentation should communicate practical engineering judgment, modern WordPress knowledge, React and Next.js competence, JavaScript competence, maintainable architecture, security awareness, and clear communication.

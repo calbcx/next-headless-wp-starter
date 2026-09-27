@@ -1,6 +1,6 @@
-# Next.js Headless WordPress
+# Next Headless WP Starter
 
-A developer-focused headless WordPress reference project using WordPress as the CMS and Next.js as the public frontend.
+A developer-focused headless WordPress starter using WordPress as the CMS and Next.js as the public frontend.
 
 This repository is intended to demonstrate practical WordPress content modeling, WPGraphQL-based data access, React and Next.js frontend development with JavaScript, local development workflow, and deployment-aware documentation.
 
@@ -126,6 +126,11 @@ exported and imported to appear in the updated installation.
    ```bash
    cp .env.example .env
    ```
+
+   `COMPOSE_PROJECT_NAME` pins the Compose project name so Docker volume names
+   stay stable. Keep it unchanged after the first `docker compose up`; a
+   different value points Compose at different volumes, and the local WordPress
+   database will appear empty.
 
 2. Start WordPress and MySQL:
 
