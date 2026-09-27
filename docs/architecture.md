@@ -268,7 +268,7 @@ WordPress + MySQL in Docker
 Next.js running locally on the host machine
 ```
 
-This keeps the setup simple while still demonstrating practical local infrastructure. The WordPress container uses the `wordpress:7.0-php8.3-apache` image so local development tracks the current stable WordPress branch on a supported PHP baseline.
+This keeps the setup simple while still demonstrating practical local infrastructure. The WordPress container pins the Docker Official Image `wordpress:7.1.2-php8.3-apache` for a reproducible local baseline on PHP 8.3. The image pin should be reviewed when WordPress security or maintenance releases ship. Existing WordPress files can persist in the container's data volume, so an image update must be followed by verification of the installed core version; see the local update instructions in `README.md`.
 
 The WordPress container publishes HTTP on `127.0.0.1:8080`, keeping the local CMS bound to the developer machine by default.
 

@@ -89,7 +89,7 @@ apps/
 
 Local development uses:
 
-- WordPress 7.0 running on PHP 8.3 in Docker
+- WordPress 7.1.2 running on PHP 8.3 in Docker
 - MySQL running in Docker
 - Next.js running from `apps/web`
 
@@ -107,7 +107,7 @@ Next.js:   http://localhost:3000
 
 Docker Compose binds WordPress to `127.0.0.1:8080` for local development so it is not exposed on the wider network by default.
 
-The Compose setup uses the `wordpress:7.0-php8.3-apache` Docker image for a current local WordPress baseline. It is for local development only; it is not a production deployment target for this project.
+The Compose setup pins the Docker Official Image `wordpress:7.1.2-php8.3-apache` for a reproducible local WordPress baseline. Review and update this pin when WordPress security or maintenance releases ship. It is for local development only; it is not a production deployment target for this project.
 
 ### Setup
 
@@ -140,6 +140,24 @@ The Compose setup uses the `wordpress:7.0-php8.3-apache` Docker image for a curr
 The Docker Compose setup mounts `./wordpress/plugins` into the container at `/var/www/html/wp-content/plugins`, so the `Project Content` plugin is available to activate from the WordPress plugins screen.
 
 Local changes to `wordpress/plugins/project-content` are available inside WordPress immediately.
+
+### Updating Local WordPress
+
+Save a local backup of any database content and WordPress files you want to keep
+before updating. Keep backups outside Git.
+
+After updating the WordPress image tag in `docker-compose.yml`, refresh that service:
+
+```bash
+docker compose pull wordpress
+docker compose up -d --no-deps wordpress
+```
+
+An existing container's WordPress files can persist in a Docker volume, so changing
+the image does not necessarily update the installed core. Check the installed
+version in WordPress admin and use **Dashboard > Updates** if it is still older
+than the image baseline. Complete any requested database update, then verify
+Projects, WPGraphQL queries, and the frontend build.
 
 ### WordPress Plugin Dependencies
 

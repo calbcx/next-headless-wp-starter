@@ -208,8 +208,10 @@ npm run build
 
 The Docker setup is intended for local development.
 
-The local WordPress container uses `wordpress:7.0-php8.3-apache` to keep the
-development CMS on a current WordPress branch and supported PHP baseline.
+The local WordPress container pins the Docker Official Image
+`wordpress:7.1.2-php8.3-apache`. Review the pin when WordPress security or
+maintenance releases ship, and verify the installed core version after an image
+update because existing WordPress files can persist in a Docker volume.
 
 Do not use local development credentials in production.
 
